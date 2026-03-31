@@ -64,11 +64,10 @@ const bookSchema = new mongoose.Schema(
 );
 
 // Prevent availableCopies from exceeding total quantity
-bookSchema.pre("save", function (next) {
+bookSchema.pre("save", async function () {
   if (this.availableCopies > this.quantity) {
     this.availableCopies = this.quantity;
   }
-  next();
 });
 
 const Book = mongoose.model("Book", bookSchema);
